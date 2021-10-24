@@ -5,16 +5,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrganizerAuthDTO {
+public class VaccineDTO {
     Long id;
     String name;
-    List<String> authorities;
+    String type;
 }
-
-

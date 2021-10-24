@@ -9,19 +9,13 @@ import java.util.List;
 
 @Data
 @Builder
-@Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class Organizer {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @EqualsAndHashCode.Exclude
+public class DoctorDTO {
     Long id;
     String name;
-    @OneToMany(mappedBy = "organizer")
-    @Builder.Default
-    List<Event> ownEvents = new ArrayList<>();
-    @OneToOne
+    List<PatientDTO> patientlist;
     User user;
+    List<String> image;
 
 }

@@ -15,8 +15,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import se331.lab.rest.entity.Organizer;
-import se331.lab.rest.repository.OrganizerRepository;
+import se331.lab.rest.entity.Patient;
+import se331.lab.rest.repository.PatientRepository;
 import se331.lab.rest.security.JwtTokenUtil;
 import se331.lab.rest.security.entity.Authority;
 import se331.lab.rest.security.entity.AuthorityName;
@@ -56,7 +56,7 @@ public class AuthenticationRestController {
     AuthorityRepository authorityRepository;
 
     @Autowired
-    OrganizerRepository organizerRepository;
+    PatientRepository patientRepository;
 
     @PostMapping("${jwt.route.authentication.path}")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest, Device device) throws AuthenticationException {
@@ -76,8 +76,8 @@ public class AuthenticationRestController {
         Map result = new HashMap();
         result.put("token", token);
         User user = userRepository.findById(((JwtUser) userDetails).getId()).orElse(null);
-        if (user.getOrganizer() != null) {
-            result.put("user", LabMapper.INSTANCE.getOrganizerAuthDTO(user.getOrganizer()));
+        if (user.getPatient() != null) {
+            result.put("user", LabMapper.INSTANCE.getPatientAuthDTO(user.getPatient()));
         }
 
         return ResponseEntity.ok(result);
@@ -103,18 +103,15 @@ public class AuthenticationRestController {
         Authority authUser = Authority.builder().name(AuthorityName.ROLE_USER).build();
         PasswordEncoder encoder = new BCryptPasswordEncoder();
         authorityRepository.save(authUser);
-        Organizer organizer = organizerRepository.getById(2L);
-        organizer.setUser(user);
-        user.setLastPasswordResetDate(Date.from(LocalDate.of(2021, 01, 01).atStartOfDay(ZoneId.systemDefault()).toInstant()));
-        user.setOrganizer(organizer);
-        user.setEnabled(true);
-        user.setFirstname("John");
-        user.setLastname("Doe");
+        Patient patient = patientRepository.getById(2L);
+        patient.setUser(user);
+//        user.setPatient(patient);
+        user.setEnabled(false);
         user.setPassword(encoder.encode(user.getPassword()));
         User output = userRepository.save(user);
         Map result = new HashMap();
         result.put("user", LabMapper.INSTANCE.getRegisterDTO(output));
-        result.put("Organizer", LabMapper.INSTANCE.getOrganizerAuthDTO(user.getOrganizer()));
+        result.put("Patient", LabMapper.INSTANCE.getPatientAuthDTO(user.getPatient()));
         user.getAuthorities().add(authUser);
         return ResponseEntity.ok(result);
     }

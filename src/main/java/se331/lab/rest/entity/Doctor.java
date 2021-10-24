@@ -1,8 +1,10 @@
 package se331.lab.rest.entity;
 
 import lombok.*;
+import se331.lab.rest.security.entity.User;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -10,13 +12,20 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class Participant {
+public class Doctor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Exclude
     Long id;
     String name;
-    String telNo;
-    @ManyToMany
-    List<Event> eventHistory;
+
+    @OneToMany (mappedBy = "doctor")
+    List<Patient> patientlist = new ArrayList<>();
+
+    @OneToOne
+    User user;
+
+    @ElementCollection
+    List<String> image = new ArrayList<>();
+
 }

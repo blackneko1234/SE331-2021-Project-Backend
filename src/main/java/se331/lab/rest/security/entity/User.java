@@ -7,7 +7,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import se331.lab.rest.entity.Organizer;
+import se331.lab.rest.entity.Admin;
+import se331.lab.rest.entity.Doctor;
+import se331.lab.rest.entity.Patient;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -28,7 +30,6 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-
     @Column(name = "USERNAME", length = 50, unique = true)
     @NotNull
     private String username;
@@ -45,23 +46,52 @@ public class User {
     @NotNull
     private String lastname;
 
-    @Column(name = "EMAIL", length = 50)
+    @Column(name = "GENDER", length = 50)
     @NotNull
-    private String email;
+    private String gender;
+
+    @Column(name = "HOMETOWN", length = 50)
+    @NotNull
+    private String hometown;
+
+    @Column(name = "BIRTHDATE", length = 50)
+    @NotNull
+    private String birthdate;
+
+    @Column(name = "AGE")
+    @NotNull
+    private Long age;
+
+    @Column(name = "VACCINEHISTORY", length = 50)
+    @NotNull
+    private String vaccinehistory;
+
+    @Column(name = "DOSE", length = 50)
+    @NotNull
+    private String dose;
+
+    @Column(name = "IMAGE")
+    @NotNull
+    @ElementCollection
+    List<String> image;
 
     @Column(name = "ENABLED")
     @NotNull
     private Boolean enabled;
+
+    @Builder.Default
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<Authority> authorities = new ArrayList<>();
 
     @Column(name = "LASTPASSWORDRESETDATE")
     @Temporal(TemporalType.TIMESTAMP)
     @NotNull
     private Date lastPasswordResetDate;
 
-    @Builder.Default
-    @ManyToMany(fetch = FetchType.EAGER)
-    private List<Authority> authorities = new ArrayList<>();
-
     @OneToOne
-    Organizer organizer;
+    Admin admin;
+    @OneToOne
+    Doctor doctor;
+    @OneToOne
+    Patient patient;
 }
