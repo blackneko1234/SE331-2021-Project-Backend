@@ -30,6 +30,7 @@ public class Patient {
     Doctor doctor;
 
     @ManyToMany(mappedBy = "patient")
+    @Builder.Default
     List<Vaccine> vaccinelist = new ArrayList<>();
 
     @ManyToMany
@@ -37,7 +38,6 @@ public class Patient {
 
     @OneToOne
     User user;
-
 
     String image;
 

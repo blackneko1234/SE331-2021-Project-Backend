@@ -1,7 +1,6 @@
 package se331.lab.rest.entity;
 
 import lombok.*;
-import se331.lab.rest.security.entity.User;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -21,6 +20,7 @@ public class Vaccine {
     String type;
 
     @ManyToMany
+    @Builder.Default
     List<Patient> patient = new ArrayList<>();
 
 }

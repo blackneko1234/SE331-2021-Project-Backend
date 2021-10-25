@@ -74,10 +74,11 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .build());
         pat1.setUser(user2);
         user2.setPatient(pat1);
-        /*pat1.getVaccinelist().add(vac1);
+
+        pat1.getVaccinelist().add(vac1);
         pat1.getVaccinelist().add(vac2);
         vac1.getPatient().add(pat1);
-        vac2.getPatient().add(pat1);*/
+        vac2.getPatient().add(pat1);
 
 
     }
