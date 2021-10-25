@@ -24,7 +24,7 @@ public class JwtUser implements UserDetails {
     private final Long age;
     private final String vaccinehistory;
     private final String dose;
-    private final List<String> image;
+    private final String image;
     private final Date lastPasswordResetDate;
 
 
@@ -43,7 +43,7 @@ public class JwtUser implements UserDetails {
             Long age,
             String vaccinehistory,
             String dose,
-            List<String> image,
+            String image,
             boolean enabled,
             Date lastPasswordResetDate
     ) {

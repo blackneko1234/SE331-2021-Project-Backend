@@ -72,8 +72,7 @@ public class User {
 
     @Column(name = "IMAGE")
     @NotNull
-    @ElementCollection
-    List<String> image;
+    String image;
 
     @Column(name = "ENABLED")
     @NotNull

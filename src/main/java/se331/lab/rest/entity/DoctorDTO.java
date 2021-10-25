@@ -16,6 +16,6 @@ public class DoctorDTO {
     String name;
     List<PatientDTO> patientlist;
     User user;
-    List<String> image;
+    String image;
 
 }

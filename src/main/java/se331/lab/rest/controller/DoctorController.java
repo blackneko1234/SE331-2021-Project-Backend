@@ -11,8 +11,9 @@ import se331.lab.rest.util.LabMapper;
 public class DoctorController {
     @Autowired
     DoctorService doctorService;
+
     @GetMapping("/doctors")
-    ResponseEntity<?> getDoctors(){
+    ResponseEntity<?> getDoctors() {
         return ResponseEntity.ok(LabMapper.INSTANCE.getDoctorDTO(doctorService.getAllDoctor()));
     }
 }

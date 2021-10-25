@@ -54,7 +54,6 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
 
         Doctor doc1;
         doc1 = doctorRepository.save(Doctor.builder()
-                .name("boonlert")
                 .build());
         doc1.setUser(user3);
         user3.setDoctor(doc1);
@@ -71,17 +70,14 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
 
         Patient pat1;
         pat1 = patientRepository.save(Patient.builder()
-                .name("Peter")
-                .surename("Parkcar")
-                .age(30L)
-                .gender("Male")
-                .hometown("Road")
                 .status("")
                 .build());
         pat1.setUser(user2);
         user2.setPatient(pat1);
-        pat1.getVaccinelist().add(vac1);
+        /*pat1.getVaccinelist().add(vac1);
         pat1.getVaccinelist().add(vac2);
+        vac1.getPatient().add(pat1);
+        vac2.getPatient().add(pat1);*/
 
 
     }
@@ -141,9 +137,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
         authorityRepository.save(authAdmin);
         authorityRepository.save(authDoctor);
         user1.getAuthorities().add(authAdmin);
-        user1.getAuthorities().add(authUser);
         user2.getAuthorities().add(authUser);
-        user3.getAuthorities().add(authUser);
         user3.getAuthorities().add(authDoctor);
         userRepository.save(user1);
         userRepository.save(user2);

@@ -18,8 +18,9 @@ public class Patient {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Exclude
     Long id;
+    String username;
     String name;
-    String surename;
+    String surname;
     Long age;
     String gender;
     String hometown;
@@ -28,7 +29,7 @@ public class Patient {
     @ManyToOne
     Doctor doctor;
 
-    @ManyToMany (mappedBy = "patient")
+    @ManyToMany(mappedBy = "patient")
     List<Vaccine> vaccinelist = new ArrayList<>();
 
     @ManyToMany
@@ -37,7 +38,7 @@ public class Patient {
     @OneToOne
     User user;
 
-    @ElementCollection
-    List<String> image = new ArrayList<>();
+
+    String image;
 
 }

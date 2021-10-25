@@ -76,9 +76,7 @@ public class AuthenticationRestController {
         Map result = new HashMap();
         result.put("token", token);
         User user = userRepository.findById(((JwtUser) userDetails).getId()).orElse(null);
-        if (user.getPatient() != null) {
-            result.put("user", LabMapper.INSTANCE.getPatientAuthDTO(user.getPatient()));
-        }
+        result.put("user", LabMapper.INSTANCE.getUserAuthDTO(user));
 
         return ResponseEntity.ok(result);
     }
@@ -103,17 +101,16 @@ public class AuthenticationRestController {
         Authority authUser = Authority.builder().name(AuthorityName.ROLE_USER).build();
         PasswordEncoder encoder = new BCryptPasswordEncoder();
         authorityRepository.save(authUser);
-        Patient patient = patientRepository.getById(2L);
-        patient.setUser(user);
-//        user.setPatient(patient);
-        user.setEnabled(false);
         user.setPassword(encoder.encode(user.getPassword()));
-        User output = userRepository.save(user);
-        Map result = new HashMap();
-        result.put("user", LabMapper.INSTANCE.getRegisterDTO(output));
-        result.put("Patient", LabMapper.INSTANCE.getPatientAuthDTO(user.getPatient()));
+        user.setLastPasswordResetDate(Date.from(LocalDate.of(2021, 01, 01).atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        user.setEnabled(false);
         user.getAuthorities().add(authUser);
+        Map result = new HashMap();
+        User output = userRepository.save(user);
+        result.put("user", LabMapper.INSTANCE.getRegisterDTO(output));
+
         return ResponseEntity.ok(result);
     }
+
 
 }

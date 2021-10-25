@@ -17,9 +17,7 @@ public class Admin {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Exclude
     Long id;
-    String name;
-
-    @ManyToMany (mappedBy = "admin")
+    @ManyToMany(mappedBy = "admin")
     List<Patient> patientList = new ArrayList<>();
 
     @OneToOne

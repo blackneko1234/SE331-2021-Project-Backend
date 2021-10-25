@@ -19,13 +19,12 @@ public class Doctor {
     Long id;
     String name;
 
-    @OneToMany (mappedBy = "doctor")
+    @OneToMany(mappedBy = "doctor")
     List<Patient> patientlist = new ArrayList<>();
 
     @OneToOne
     User user;
 
-    @ElementCollection
-    List<String> image = new ArrayList<>();
+    String image;
 
 }
