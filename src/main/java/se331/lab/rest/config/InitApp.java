@@ -6,14 +6,8 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import se331.lab.rest.entity.Admin;
-import se331.lab.rest.entity.Doctor;
-import se331.lab.rest.entity.Patient;
-import se331.lab.rest.entity.Vaccine;
-import se331.lab.rest.repository.AdminRepository;
-import se331.lab.rest.repository.PatientRepository;
-import se331.lab.rest.repository.DoctorRepository;
-import se331.lab.rest.repository.VaccineRepository;
+import se331.lab.rest.entity.*;
+import se331.lab.rest.repository.*;
 import se331.lab.rest.security.entity.Authority;
 import se331.lab.rest.security.entity.AuthorityName;
 import se331.lab.rest.security.entity.User;
@@ -40,6 +34,8 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
     VaccineRepository vaccineRepository;
     @Autowired
     AdminRepository adminRepository;
+    @Autowired
+    CommentRepository commentRepository;
 
     @Override
     @Transactional
@@ -54,23 +50,30 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
 
         Doctor doc1;
         doc1 = doctorRepository.save(Doctor.builder()
+                .name("MorPeeh")
+                .user(user3)
                 .build());
         doc1.setUser(user3);
         user3.setDoctor(doc1);
 
         Vaccine vac1, vac2;
         vac1 = vaccineRepository.save(Vaccine.builder()
-                .name("Tood")
+                .name("AstraZeneca")
                 .type("1")
                 .build());
         vac2 = vaccineRepository.save(Vaccine.builder()
-                .name("Tood")
+                .name("Pfizer")
                 .type("2")
                 .build());
 
         Patient pat1;
         pat1 = patientRepository.save(Patient.builder()
-                .status("")
+                .name("Dang")
+                .surname("Guitar")
+                .gender("Male")
+                .hometown("Everywhere")
+                .age(36L)
+                .status("Im fine")
                 .build());
         pat1.setUser(user2);
         user2.setPatient(pat1);
@@ -80,7 +83,15 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
         vac1.getPatient().add(pat1);
         vac2.getPatient().add(pat1);
 
-
+        Comment ment1;
+        ment1 = commentRepository.save(Comment.builder()
+                .description("Go die")
+                .commentDate("12 September 2021")
+                .build());
+        pat1.getCommentList().add(ment1);
+        doc1.getCommentList().add(ment1);
+        ment1.setSendComment(doc1);
+        ment1.setReceiveComment(pat1);
     }
 
     User user1, user2, user3;

@@ -22,6 +22,10 @@ public class Doctor {
     @OneToMany(mappedBy = "doctor")
     List<Patient> patientlist = new ArrayList<>();
 
+    @OneToMany(mappedBy = "sendComment")
+    @Builder.Default
+    List<Comment> commentList = new ArrayList<>();
+
     @OneToOne
     User user;
 

@@ -1,6 +1,5 @@
 package se331.lab.rest.entity;
 
-import ch.qos.logback.core.BasicStatusManager;
 import lombok.*;
 import se331.lab.rest.security.entity.User;
 
@@ -36,9 +35,12 @@ public class Patient {
     @ManyToMany
     List<Admin> admin = new ArrayList<>();
 
+    @OneToMany (mappedBy = "receiveComment")
+    @Builder.Default
+    List<Comment> commentList = new ArrayList<>();
+
     @OneToOne
     User user;
 
     String image;
-
 }
