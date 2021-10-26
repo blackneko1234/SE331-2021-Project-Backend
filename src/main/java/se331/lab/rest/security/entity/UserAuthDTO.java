@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import se331.lab.rest.entity.AuthorityDTO;
 import se331.lab.rest.entity.VaccineDTO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data

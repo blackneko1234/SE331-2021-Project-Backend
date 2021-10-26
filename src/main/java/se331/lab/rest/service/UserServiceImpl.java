@@ -19,6 +19,7 @@ public class UserServiceImpl implements UserService {
     UserDao userDao;
     @Autowired
     DoctorDao doctorDao;
+
     @Override
     public Integer getUserSize() {
         return userDao.getUserSize();
@@ -34,17 +35,14 @@ public class UserServiceImpl implements UserService {
         return userDao.getUser(id);
     }
 
-//    @Override
-//    @Transactional
-//    public User save(User user) {
-//        Doctor doctor = doctorDao.findById(user.getDoctor().getId()).orElse(null);
-//        user.setDoctor(doctor);
-//        doctor.getPatientlist().add(user);
-//        return userDao.save(user);
-//    }
+    @Override
+    @Transactional
+    public User save(User user) {
+        return userDao.save(user);
+    }
 
     @Override
     public Page<User> getUsers(String title, Pageable pageable) {
-        return userDao.getUser(title,pageable);
+        return userDao.getUser(title, pageable);
     }
 }

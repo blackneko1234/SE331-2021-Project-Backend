@@ -11,9 +11,12 @@ import java.util.List;
 
 public interface UserService {
     Integer getUserSize();
+
     Page<User> getUsers(Integer pageSize, Integer page);
+
     User getUser(Long id);
 
-//    User save(User user);
+    User save(User user);
+
     Page<User> getUsers(String title, Pageable pageable);
 }

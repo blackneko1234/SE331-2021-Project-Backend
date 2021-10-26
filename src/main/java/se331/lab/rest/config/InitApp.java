@@ -88,7 +88,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
         ment1.setReceiveComment(pat1);
     }
 
-    User user1, user2, user3;
+    User user1, user2, user3, user4, user5;
 
     private void addUser() {
         PasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -139,15 +139,48 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .enabled(true)
                 .lastPasswordResetDate(Date.from(LocalDate.of(2021, 01, 01).atStartOfDay(ZoneId.systemDefault()).toInstant()))
                 .build();
+
+        user4 = User.builder()
+                .username("test")
+                .password(encoder.encode("test"))
+                .firstname("test")
+                .lastname("test")
+                .gender("Male")
+                .hometown("Chaing Mai")
+                .birthdate("18 October 2014")
+                .age(26L)
+                .vaccinehistory("2 times")
+                .dose("Second dose")
+                .enabled(false)
+                .lastPasswordResetDate(Date.from(LocalDate.of(2021, 01, 01).atStartOfDay(ZoneId.systemDefault()).toInstant()))
+                .build();
+        user5 = User.builder()
+                .username("test2")
+                .password(encoder.encode("test"))
+                .firstname("test2")
+                .lastname("test2")
+                .gender("Male")
+                .hometown("Chaing Mai")
+                .birthdate("18 October 2014")
+                .age(26L)
+                .vaccinehistory("2 times")
+                .dose("Second dose")
+                .enabled(false)
+                .lastPasswordResetDate(Date.from(LocalDate.of(2021, 01, 01).atStartOfDay(ZoneId.systemDefault()).toInstant()))
+                .build();
         authorityRepository.save(authUser);
         authorityRepository.save(authAdmin);
         authorityRepository.save(authDoctor);
         user1.getAuthorities().add(authAdmin);
         user2.getAuthorities().add(authUser);
         user3.getAuthorities().add(authDoctor);
+        user4.getAuthorities().add(authUser);
+        user5.getAuthorities().add(authUser);
         userRepository.save(user1);
         userRepository.save(user2);
         userRepository.save(user3);
+        userRepository.save(user4);
+        userRepository.save(user5);
 
     }
 }
