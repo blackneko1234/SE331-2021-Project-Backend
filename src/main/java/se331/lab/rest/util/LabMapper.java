@@ -6,7 +6,6 @@ import org.mapstruct.factory.Mappers;
 import se331.lab.rest.entity.*;
 import se331.lab.rest.security.entity.User;
 import se331.lab.rest.security.entity.UserAuthDTO;
-import se331.lab.rest.security.entity.UserDTO;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,6 +29,5 @@ public interface LabMapper {
 
     List<AdminDTO> getAdminDTO(List<Admin> admins);
 
-    UserDTO getUserDTO(User users);
-    List<UserDTO> getUserDTO(List<User> users);
+    List<UserAuthDTO> getUserDTO(List<User> users);
 }

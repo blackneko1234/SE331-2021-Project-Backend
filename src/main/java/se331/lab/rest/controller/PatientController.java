@@ -44,7 +44,7 @@ public class PatientController {
 
         User output = userService.getUser(id);
         if (output != null) {
-            return ResponseEntity.ok(LabMapper.INSTANCE.getUserDTO(output));
+            return ResponseEntity.ok(LabMapper.INSTANCE.getUserAuthDTO(output));
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The given id is not found");
         }

@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import se331.lab.rest.entity.AuthorityDTO;
+import se331.lab.rest.entity.VaccineDTO;
 
 import java.util.List;
 
@@ -24,6 +26,6 @@ public class UserAuthDTO {
     String vaccinehistory;
     String image;
     Boolean enabled;
+    List<VaccineDTO> vaccineList;
     List<String> authorities;
-
 }
