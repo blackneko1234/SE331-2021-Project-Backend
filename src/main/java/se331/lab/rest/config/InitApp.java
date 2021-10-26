@@ -68,12 +68,6 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
 
         Patient pat1;
         pat1 = patientRepository.save(Patient.builder()
-                .name("Dang")
-                .surname("Guitar")
-                .gender("Male")
-                .hometown("Everywhere")
-                .age(36L)
-                .status("Im fine")
                 .build());
         pat1.setUser(user2);
         user2.setPatient(pat1);

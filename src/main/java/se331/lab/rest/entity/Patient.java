@@ -17,13 +17,6 @@ public class Patient {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Exclude
     Long id;
-    String username;
-    String name;
-    String surname;
-    Long age;
-    String gender;
-    String hometown;
-    String status;
 
     @ManyToOne
     Doctor doctor;
