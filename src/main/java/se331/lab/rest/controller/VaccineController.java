@@ -11,6 +11,7 @@ import se331.lab.rest.util.LabMapper;
 public class VaccineController {
     @Autowired
     VaccineService vaccineService;
+
     @GetMapping("/vaccines")
     ResponseEntity<?> getVaccines() {
         return ResponseEntity.ok(LabMapper.INSTANCE.getVaccineDTO(vaccineService.getAllVaccine()));

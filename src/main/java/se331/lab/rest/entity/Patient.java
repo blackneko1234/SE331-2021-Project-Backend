@@ -21,14 +21,14 @@ public class Patient {
     @ManyToOne
     Doctor doctor;
 
-    @ManyToMany(mappedBy = "patient")
+    @OneToMany(mappedBy = "patient")
     @Builder.Default
-    List<Vaccine> vaccinelist = new ArrayList<>();
+    List<VaccineUser> vaccinelist = new ArrayList<>();
 
     @ManyToMany
     List<Admin> admin = new ArrayList<>();
 
-    @OneToMany (mappedBy = "receiveComment")
+    @OneToMany(mappedBy = "receiveComment")
     @Builder.Default
     List<Comment> commentList = new ArrayList<>();
 

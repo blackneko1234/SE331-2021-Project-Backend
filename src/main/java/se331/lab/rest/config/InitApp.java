@@ -33,6 +33,8 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
     @Autowired
     VaccineRepository vaccineRepository;
     @Autowired
+    VaccineUserRepository vaccineUserRepository;
+    @Autowired
     AdminRepository adminRepository;
     @Autowired
     CommentRepository commentRepository;
@@ -56,14 +58,22 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
         doc1.setUser(user3);
         user3.setDoctor(doc1);
 
-        Vaccine vac1, vac2;
+        Vaccine vac1, vac2, vac3, vac4;
         vac1 = vaccineRepository.save(Vaccine.builder()
                 .name("AstraZeneca")
-                .type("1")
+                .type("Recombinant viral vector vaccine")
                 .build());
         vac2 = vaccineRepository.save(Vaccine.builder()
                 .name("Pfizer")
-                .type("2")
+                .type("MRNA")
+                .build());
+        vac3 = vaccineRepository.save(Vaccine.builder()
+                .name("Sinovac")
+                .type("Inactivated vaccine")
+                .build());
+        vac4 = vaccineRepository.save(Vaccine.builder()
+                .name("Moderna")
+                .type("MRNA")
                 .build());
 
         Patient pat1;
@@ -72,10 +82,16 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
         pat1.setUser(user2);
         user2.setPatient(pat1);
 
-        pat1.getVaccinelist().add(vac1);
+
+        VaccineUser vc1;
+        vc1 = vaccineUserRepository.save(VaccineUser.builder().date(LocalDate.now()).build());
+        vc1.setPatient(pat1);
+        vc1.setVaccine(vac1);
+
+        /*pat1.getVaccinelist().add(vac1);
         pat1.getVaccinelist().add(vac2);
-        vac1.getPatient().add(pat1);
-        vac2.getPatient().add(pat1);
+        vac1.getPatientList().add(pat1);
+        vac2.getPatientList().add(pat1);*/
 
         Comment ment1;
         ment1 = commentRepository.save(Comment.builder()
@@ -105,7 +121,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .birthdate("18 October 2014")
                 .age(26L)
                 .vaccinehistory("2 times")
-                .dose("Second dose")
+                .dose("2")
                 .enabled(true)
                 .lastPasswordResetDate(Date.from(LocalDate.of(2021, 01, 01).atStartOfDay(ZoneId.systemDefault()).toInstant()))
                 .build();
@@ -120,7 +136,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .birthdate("18 October 2014")
                 .age(26L)
                 .vaccinehistory("2 times")
-                .dose("Second dose")
+                .dose("2")
                 .enabled(true)
                 .lastPasswordResetDate(Date.from(LocalDate.of(2021, 01, 01).atStartOfDay(ZoneId.systemDefault()).toInstant()))
                 .build();
@@ -135,7 +151,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .birthdate("18 October 2014")
                 .age(26L)
                 .vaccinehistory("2 times")
-                .dose("Second dose")
+                .dose("2")
                 .enabled(true)
                 .lastPasswordResetDate(Date.from(LocalDate.of(2021, 01, 01).atStartOfDay(ZoneId.systemDefault()).toInstant()))
                 .build();
@@ -150,7 +166,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .birthdate("18 October 2014")
                 .age(26L)
                 .vaccinehistory("2 times")
-                .dose("Second dose")
+                .dose("2")
                 .enabled(false)
                 .lastPasswordResetDate(Date.from(LocalDate.of(2021, 01, 01).atStartOfDay(ZoneId.systemDefault()).toInstant()))
                 .build();
@@ -164,7 +180,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .birthdate("18 October 2014")
                 .age(26L)
                 .vaccinehistory("2 times")
-                .dose("Second dose")
+                .dose("2")
                 .enabled(false)
                 .lastPasswordResetDate(Date.from(LocalDate.of(2021, 01, 01).atStartOfDay(ZoneId.systemDefault()).toInstant()))
                 .build();

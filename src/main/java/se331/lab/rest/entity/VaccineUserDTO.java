@@ -4,16 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import se331.lab.rest.security.entity.UserAuthDTO;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDate;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class VaccineDTO {
+public class VaccineUserDTO {
     Long id;
-    String name;
-    String type;
+    VaccineDTO vaccine;
 }

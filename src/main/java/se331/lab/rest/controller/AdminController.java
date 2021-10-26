@@ -6,10 +6,10 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import se331.lab.rest.entity.Doctor;
-import se331.lab.rest.entity.Patient;
+import se331.lab.rest.entity.*;
 import se331.lab.rest.repository.DoctorRepository;
 import se331.lab.rest.repository.PatientRepository;
+import se331.lab.rest.repository.VaccineRepository;
 import se331.lab.rest.security.entity.Authority;
 import se331.lab.rest.security.entity.AuthorityName;
 import se331.lab.rest.security.entity.User;
@@ -17,6 +17,7 @@ import se331.lab.rest.security.entity.UserAuthDTO;
 import se331.lab.rest.security.repository.AuthorityRepository;
 import se331.lab.rest.security.repository.UserRepository;
 import se331.lab.rest.service.AdminService;
+import se331.lab.rest.service.PatientService;
 import se331.lab.rest.service.UserService;
 import se331.lab.rest.util.LabMapper;
 
@@ -32,6 +33,9 @@ public class AdminController {
     UserService userService;
 
     @Autowired
+    PatientService patientService;
+
+    @Autowired
     UserRepository userRepository;
 
     @Autowired
@@ -39,6 +43,9 @@ public class AdminController {
 
     @Autowired
     PatientRepository patientRepository;
+
+    @Autowired
+    VaccineRepository vaccineRepository;
 
     @Autowired
     AuthorityRepository authorityRepository;
@@ -81,6 +88,7 @@ public class AdminController {
                     .build());
             patient.setUser(tempUser);
             tempUser.setPatient(patient);
+
         } else if (tempUser.getAuthorities().get(0).getName().equals(AuthorityName.ROLE_DOCTOR)) {
             Doctor doctor = doctorRepository.save(Doctor.builder()
                     .user(tempUser)
@@ -96,5 +104,37 @@ public class AdminController {
         User tempUser = userRepository.findById(id).get();
         userRepository.delete(tempUser);
         return ResponseEntity.ok(LabMapper.INSTANCE.getUserAuthDTO(tempUser));
+    }
+
+    /* @PostMapping("/AddVaccineToPatient/{id}")
+     public ResponseEntity<VaccineDTO> addVaccine(@PathVariable("id") Long id)*{
+         Patient output = patientRepository.findById(id).get();
+         Vaccine vaccine = vaccineRepository.findAll().get(0);
+         User user = userRepository.findById(id).get();
+         if (vaccine.getName().equals("AstraZeneca")) {
+             Vaccine vac = vaccineRepository.findAll().get(0);
+             user.setDose(user.getDose() + 1);
+             output.getVaccinelist().add(vac);
+         } else if (vaccine.getName().equals("Pfizer")) {
+             Vaccine vac = vaccineRepository.findAll().get(0);
+             user.setDose(user.getDose() + 1);
+             output.getVaccinelist().add(vac);
+         } else if (vaccine.getName().equals("Moderna")) {
+             Vaccine vac = vaccineRepository.findAll().get(0);
+             output.getVaccinelist().add(vac);
+         } else if (vaccine.getName().equals("Sinovac")) {
+             Vaccine vac = vaccineRepository.findAll().get(0);
+             user.setDose(user.getDose() + 1);
+             output.getVaccinelist().add(vac);
+         }
+         return ResponseEntity.ok(LabMapper.INSTANCE.getVaccineDTO(output));
+     }*/
+
+    @PostMapping("/AddVaccineToPatient/{id}")
+    public ResponseEntity<VaccineUserDTO> addVaccine(@PathVariable("id") Long id, @RequestBody VaccineUser vaccineUser) {
+        Patient patient = patientRepository.findById(id).get();
+        vaccineUser.setPatient(patient);
+        VaccineUser output = patientService.save(vaccineUser);
+        return ResponseEntity.ok(LabMapper.INSTANCE.getVaccineUserDTO(output));
     }
 }

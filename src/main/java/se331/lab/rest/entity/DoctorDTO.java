@@ -14,6 +14,7 @@ import java.util.List;
 public class DoctorDTO {
     Long id;
     String name;
+    String lastname;
     List<PatientDTO> patientlist;
     User user;
     String image;

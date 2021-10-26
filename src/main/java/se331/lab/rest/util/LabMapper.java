@@ -30,4 +30,10 @@ public interface LabMapper {
     List<AdminDTO> getAdminDTO(List<Admin> admins);
 
     List<UserAuthDTO> getUserDTO(List<User> users);
+
+    VaccineDTO getVaccineDTO(Patient patient);
+
+    VaccineUserDTO getVaccineUserDTO(VaccineUser vaccineUser);
+
+    List<VaccineUser> getVaccineUserDTO(List<VaccineUser> vaccineUsers);
 }

@@ -6,8 +6,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import se331.lab.rest.dao.PatientDao;
 import se331.lab.rest.dao.DoctorDao;
+import se331.lab.rest.dao.VaccineUserDao;
 import se331.lab.rest.entity.Doctor;
 import se331.lab.rest.entity.Patient;
+import se331.lab.rest.entity.VaccineUser;
 
 import javax.transaction.Transactional;
 
@@ -17,6 +19,9 @@ public class PatientServiceImpl implements PatientService {
     PatientDao patientDao;
     @Autowired
     DoctorDao doctorDao;
+    @Autowired
+    VaccineUserDao vaccineUserDao;
+
     @Override
     public Integer getPatientSize() {
         return patientDao.getPatientSize();
@@ -34,15 +39,12 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     @Transactional
-    public Patient save(Patient patient) {
-        Doctor doctor = doctorDao.findById(patient.getDoctor().getId()).orElse(null);
-        patient.setDoctor(doctor);
-        doctor.getPatientlist().add(patient);
-        return patientDao.save(patient);
+    public VaccineUser save(VaccineUser vaccineUser) {
+        return vaccineUserDao.save(vaccineUser);
     }
 
     @Override
     public Page<Patient> getPatients(String title, Pageable pageable) {
-        return patientDao.getPatient(title,pageable);
+        return patientDao.getPatient(title, pageable);
     }
 }

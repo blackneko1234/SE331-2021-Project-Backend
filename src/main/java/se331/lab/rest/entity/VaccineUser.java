@@ -3,6 +3,7 @@ package se331.lab.rest.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,16 +12,15 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class Vaccine {
+public class VaccineUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Exclude
     Long id;
-    String name;
-    String type;
+    LocalDate date;
 
-    @OneToMany(mappedBy = "vaccine")
-    @Builder.Default
-    List<VaccineUser> patientList = new ArrayList<>();
-
+    @ManyToOne
+    Vaccine vaccine;
+    @ManyToOne
+    Patient patient;
 }

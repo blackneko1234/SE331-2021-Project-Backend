@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -18,4 +20,5 @@ public class VaccinePatientHistoryDTO {
     String gender;
     String hometown;
     String status;
+    Date vaccinatedDate;
 }

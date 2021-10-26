@@ -50,9 +50,9 @@ public class PatientController {
         }
     }
 
-    @PostMapping("/patients")
+   /* @PostMapping("/patients")
     public ResponseEntity<?> addPatient(@RequestBody Patient patient) {
         Patient output = patientService.save(patient);
         return ResponseEntity.ok(LabMapper.INSTANCE.getPatientDto(output));
-    }
+    }*/
 }
