@@ -2,13 +2,8 @@
 <h1 style="text-align:center"><u>Group Member</u></h1>
   <tr>
     <td>
-    
-  [Project URL (AWS)](http://54.159.7.83)
-    
-  </td>
-  <td>
-    
-  [Project URL (Firebase)](https://se331-2021-project-greyray.web.app/)
+
+  [Project URL (AWS)](http://54.208.226.254:8001/)
     
   </td>
     </tr>
